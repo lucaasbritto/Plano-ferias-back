@@ -14,7 +14,7 @@ Este é um projeto para gerenciar planos de férias usando Laravel para o backen
     npm/yarn
 
 
-## Configuração do Ambiente
+## Configuração do Ambiente BACKEND
 
  1. Clone o repositório:   
         git clone https://github.com/lucaasbritto/buzzvel.git
@@ -41,6 +41,14 @@ Este é um projeto para gerenciar planos de férias usando Laravel para o backen
 
  7. Execute as migrações do banco de dados:    
        php artisan migrate
+
+
+## Configuração do Ambiente FRONTEND
+
+1. Clone o repositório em uma pasta separada para o front:   
+        git clone https://github.com/lucaasbritto/buzzvel_front.git
+
+
 
 
 ## DOCUMENTAÇÃO DA API

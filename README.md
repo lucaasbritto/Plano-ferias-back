@@ -42,3 +42,179 @@ Este é um projeto para gerenciar planos de férias usando Laravel para o backen
  7. Execute as migrações do banco de dados:    
        php artisan migrate
 
+
+## DOCUMENTAÇÃO DA API
+
+
+1. Login
+Endpoint: /login
+    • Método HTTP: POST
+    • Descrição: Autentica um usuário e retorna um token JWT.
+
+Parâmetros de Requisição:
+    • Corpo (JSON):	
+         {
+              "email": "adm@teste.com",
+              "password": "buzzvel",        
+          },
+
+Resposta de Sucesso:
+    • Status: 200 OK
+    • Corpo (JSON):
+      { "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..." } 
+
+Resposta de Erro:
+    • Status: 401 Unauthorized
+    • Corpo (JSON):
+      { "message": "Invalid credentials" } 
+
+
+
+2. Listar Planos de Férias
+Endpoint: /vacation-plans
+    • Método HTTP: GET
+    • Descrição: Retorna uma lista de todos os planos de férias.
+
+Parâmetros de Requisição:
+    • Cabeçalho:
+        ◦ Authorization: Bearer {token}
+
+Resposta de Sucesso:
+    • Status: 200 OK
+    • Corpo (JSON):
+          {
+              "id": 1,
+              "title": "Férias no Havaí",
+              "description": "Uma semana relaxando nas praias do Havaí",
+              "date": "2024-08-15",
+              "location": "Portugal",
+              "participants": "Lucas Britto, Karla Araujo"
+          },
+      
+Resposta de Erro:
+    • Status: 401 Unauthorized
+    • Corpo (JSON):
+      {
+          "message": "Unauthenticated."
+      }
+
+
+3. Criar Plano de Férias
+Endpoint: /vacation-plans/create
+    • Método HTTP: POST
+    • Descrição: Cria um novo plano de férias.
+
+Parâmetros de Requisição:
+    • Cabeçalho:
+        ◦ Authorization: Bearer {token}
+    • Corpo (JSON):
+      {
+          "title": "Férias em Paris",
+          "description": "Visitar museus e pontos turísticos",
+          "date": "2024-09-10",
+          "location": "França",
+          "participants": "Alice, Bob"
+      }
+
+Resposta de Sucesso:
+    • Status: 201 Created
+    • Corpo (JSON):
+      {
+          "id": 2,
+          "title": "Férias em Paris",
+          "description": "Visitar museus e pontos turísticos",
+          "date": "2024-09-10",
+          "location": "França",
+          "participants": "Alice, Bob"
+      }
+
+Resposta de Erro:
+    • Status: 400 Bad Request
+    • Corpo (JSON):
+      {
+          "message": "Validation error",
+          "errors": {
+              "title": ["The title field is required."],
+              ...
+          }
+      }
+
+
+4. Atualizar Plano de Férias
+Endpoint: /vacation-plans/{id}
+    • Método HTTP: PUT
+    • Descrição: Atualiza um plano de férias existente.
+
+Parâmetros de Requisição:
+    • Cabeçalho:
+        ◦ Authorization: Bearer {token}
+    • Corpo (JSON):
+      {
+          "title": "Férias em Roma",
+          "description": "Passeios históricos e gastronômicos",
+          "date": "2024-10-05",
+          "location": "Itália",
+          "participants": "Alice, Bob"
+      }
+
+Resposta de Sucesso:
+    • Status: 200 OK
+    • Corpo (JSON):
+      {
+          "id": 2,
+          "title": "Férias em Roma",
+          "description": "Passeios históricos e gastronômicos",
+          "date": "2024-10-05",
+          "location": "Itália",
+          "participants": "Alice, Bob"
+      }
+
+Resposta de Erro:
+    • Status: 404 Not Found
+    • Corpo (JSON):
+      {
+          "message": "Vacation plan not found."
+      }
+
+
+5. Excluir Plano de Férias
+Endpoint: /vacation-plans/{id}
+    • Método HTTP: DELETE
+    • Descrição: Exclui um plano de férias existente.
+
+Parâmetros de Requisição:
+    • Cabeçalho:
+        ◦ Authorization: Bearer {token}
+
+Resposta de Sucesso:
+    • Status: 204 No Content
+
+Resposta de Erro:
+    • Status: 404 Not Found
+    • Corpo (JSON):
+      {
+          "message": "Vacation plan not found."
+      }
+
+
+6. Download do PDF do Plano de Férias
+Endpoint: /vacation-plans/{id}/pdf
+    • Método HTTP: GET
+    • Descrição: Faz o download do plano de férias em formato PDF.
+
+Parâmetros de Requisição:
+    • Cabeçalho:
+        ◦ Authorization: Bearer {token}
+
+Resposta de Sucesso:
+    • Status: 200 OK
+    • Cabeçalho:
+        ◦ Content-Disposition: attachment; filename="vacation_plan.pdf"
+    • Corpo: Arquivo PDF binário.
+    
+Resposta de Erro:
+    • Status: 404 Not Found
+    • Corpo (JSON):
+      {
+          "message": "Vacation plan not found."
+      }

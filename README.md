@@ -30,11 +30,11 @@ Este é um projeto para gerenciar planos de férias usando Laravel para o backen
 
  5. Atualize o arquivo .env com suas credenciais de banco de dados:    
         DB_CONNECTION=mysql
-        DB_HOST=br1118.hostgator.com.br
+        DB_HOST=meuHost
         DB_PORT=3306
-        DB_DATABASE=brind112_testes
-        DB_USERNAME=brind112_testeadm
-        DB_PASSWORD=@dmteste2024!
+        DB_DATABASE=meubanco
+        DB_USERNAME=meuusuario
+        DB_PASSWORD=minhasenha
 
  6. Gere a chave de aplicação do Laravel:    
        php artisan key:generate
